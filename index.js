@@ -24,9 +24,14 @@ connect(`${process.env.MONGO_DB}`)
 
 //Server
 app.listen(process.env.PORT || 5000, () => {
-  console.log("Server is running on port 5000");
+  console.log("Server is running on http://localhost:" + process.env.PORT);
 });
 
 //API endpoint
+app.get("/", (req, res) => {
+  res.json({
+    message: "API is working!"
+  })
+})
 app.use("/products", productsRoute);
 app.use("/users", usersRoute);
