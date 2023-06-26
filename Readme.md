@@ -5,11 +5,12 @@ This repository provides a basic boilerplate for creating a REST API using Expre
 ## Table of Contents
 1. [Basic Requirements](#basic-requirements)
 2. [Getting Started](#getting-started)
-3. [Database](#database)
-4. [Application Structure](#application-structure)
-5. [API Overview](#api-overview)
-6. [Authentication and Authorization](#authentication-and-authorization)
-7. [Error Handling](#error-handling)
+3. [Docker Deployment](#docker-deployment)
+4. [Database](#database)
+5. [Application Structure](#application-structure)
+6. [API Overview](#api-overview)
+7. [Authentication and Authorization](#authentication-and-authorization)
+8. [Error Handling](#error-handling)
 
 ## Basic Requirements
 
@@ -57,9 +58,37 @@ To install and run this repository, follow these steps:
 
    The API will now be running at `http://localhost:5000`.
 
+## Docker deployment
+
+1. Build a docker image
+   ```
+   docker build . -t <your username>/genics-api
+   ```
+
+2. Run the image
+   ```
+   docker run -p <port>:5000 -d <your username>/genics-api
+   ```
+   The API will now be running at `http://localhost:<port>`.
+
+## Docker  compose
+
+1.  Edit docker-compose.yml
+   ```
+   image: <your username>/genics-api
+      ports:
+         - '3000:3000'
+      environment:
+         - MONGO_DB=mongodb://mongodb:27017/mydatabase
+         - PORT=3000
+   ```
+   The API will now be running at `http://localhost:3000`.
+
 ## Database
 
 This API uses MongoDB as its database. You can either set up a local MongoDB installation or use an online database service such as [MongoDB Atlas](https://www.mongodb.com/cloud/atlas). To connect to your database, provide the MongoDB connection URI in the `.env` file as mentioned in the Getting Started section.
+
+If use docker compose skip this
 
 ## Application Structure
 
@@ -96,6 +125,8 @@ The API provides endpoints for managing users and products in a simple ecommerce
 - **Users**
   - `GET /users`: Retrieve a list of all users.
   - `POST /users`: Create a new user.
+  - `PUT /users/:id`: Update an existing user by ID.
+  - `DELETE /users/:id`: Delete a user by ID.
 
 - **Products**
   - `GET /products`: Retrieve a list of all products.
