@@ -82,6 +82,10 @@ To install and run this repository, follow these steps:
          - MONGO_DB=mongodb://mongodb:27017/mydatabase
          - PORT=3000
    ```
+
+2. Run docker compose
+```docker-compose up
+```
    The API will now be running at `http://localhost:3000`.
 
 ## Database
